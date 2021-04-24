@@ -20,6 +20,7 @@ function App({ isLoading, percentage, statusList }) {
           {`${isLoading ? "Loading..." : "Loaded"}`}
           <br />
           {`percentage ${percentage}%`}
+          <br />
           <button onClick={() => {
             longRunningTaskWithPool(1000);
             longRunningTaskWithPool(2000);
@@ -28,7 +29,7 @@ function App({ isLoading, percentage, statusList }) {
             longRunningTaskWithPool(5000);
 
           }}>
-            Load
+            Load default
           </button>
         </div>
         <br />
@@ -37,6 +38,7 @@ function App({ isLoading, percentage, statusList }) {
           {`${xTaskStatus.isLoading ? "Loading..." : "Loaded"}`}
           <br />
           {`percentage ${xTaskStatus.percentage}%`}
+          <br />
           <button onClick={() => {
             longRunningTaskWithPoolCustom(1000);
             longRunningTaskWithPoolCustom(2000);
@@ -45,7 +47,7 @@ function App({ isLoading, percentage, statusList }) {
             longRunningTaskWithPoolCustom(5000);
 
           }}>
-            Load
+            Load xTask
           </button>
         </div>
 
@@ -55,7 +57,7 @@ function App({ isLoading, percentage, statusList }) {
 }
 
 const app = withLoading({
-  poolKey: ["xTask"]
+  poolKey: ["default", "xTask"]
 })(App)
 export default app;
 // export default (App);
