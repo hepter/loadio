@@ -20,19 +20,17 @@ export type WithLoadingSettings = {
 
 export function withLoading(settings: WithLoadingSettings = {}) {
     return function Hoc<T extends WithLoadingState>(Component: React.ComponentType<T>) {
-
-        const [isLoading, setIsLoading] = React.useState(false);
-        const [percentage, setPercentage] = React.useState(0);
-        const [runningTasks, setRunningTasks] = React.useState(0);
-        const [statusList, setStatusList] = React.useState<Record<string, Omit<WithLoadingState, "statusList">>>({});
-        const [unsubscribeFuncList] = React.useState<Function[]>([]);
-
         function EnhancedWithLoading({ forwardedRef, ...rest }: { forwardedRef: React.Ref<T> }) {
+            const [isLoading, setIsLoading] = React.useState(false);
+            const [percentage, setPercentage] = React.useState(0);
+            const [runningTasks, setRunningTasks] = React.useState(0);
+            const [statusList, setStatusList] = React.useState<Record<string, Omit<WithLoadingState, "statusList">>>({});
+            const [unsubscribeFuncList] = React.useState<Function[]>([]);
 
             const poolChanged = (params: StatusCallback) => {
                 if (
-                    (settings?.poolKey?.length && settings.poolKey.indexOf(params.key)) ||
-                    (params.key !== (settings.poolKey ?? "default"))
+                    (settings?.poolKey?.length && settings.poolKey.indexOf(params.key) > -1) ||
+                    (typeof settings.poolKey === "string" && params.key === (settings.poolKey ?? "default"))
                 ) {
                     if (params.key === "default") {
                         if (params.isLoading !== isLoading) {
