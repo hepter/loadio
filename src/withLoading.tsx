@@ -1,16 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusCallback } from "./Pool";
 import { poolMap } from "./PoolMap";
 
 
 export interface WithLoadingState {
-
-
     isLoading?: boolean,
     percentage?: number,
     runningTasks?: number
     statusList?: { [key: string]: Omit<WithLoadingState, "statusList"> }
-
 }
 export type WithLoadingSettings = {
 
@@ -19,22 +16,36 @@ export type WithLoadingSettings = {
      * Default is `'default'`.
      */
     poolKey?: string | Array<string>,
-
 }
 
 export function withLoading(settings: WithLoadingSettings = {}) {
     return function Hoc<T extends WithLoadingState>(Component: React.ComponentType<T>) {
 
+        const [isLoading, setIsLoading] = React.useState(false);
+        const [percentage, setPercentage] = React.useState(0);
+        const [runningTasks, setRunningTasks] = React.useState(0);
+        const [statusList, setStatusList] = React.useState<Record<string, Omit<WithLoadingState, "statusList">>>({});
+        const [unsubscribeFuncList] = React.useState<Function[]>([]);
 
-        class EnhancedWithLoading extends React.PureComponent<any, WithLoadingState> {
-            state = {
-                isLoading: false,
-                percentage: 0,
-                runningTasks: 0,
-                statusList: {}
+        function EnhancedWithLoading({ forwardedRef, ...rest }: {forwardedRef: React.Ref<T>}) {
+
+            const poolChanged = (params: StatusCallback) => {
+                if (params.key === "default") {
+                    if (params.isLoading !== isLoading) {
+                        setIsLoading(params.isLoading);
+                    }
+                    if (params.percentage !== percentage) {
+                        setPercentage(params.percentage);
+                    }
+                    if (params.runningTasks !== runningTasks) {
+                        setRunningTasks(params.runningTasks);
+                    }
+                } else {
+                    statusList[params.key] = { ...params }
+                    setStatusList({ ...statusList })
+                }
             }
-            unsubscribeFuncList: Function[] = []
-            componentDidMount() {
+            useEffect(() => {
                 var defaultPool = poolMap.find(a => a.poolKey === "default");
                 if (defaultPool === undefined) {
                     throw new TypeError('The value was promised to always be there!');
@@ -42,65 +53,30 @@ export function withLoading(settings: WithLoadingSettings = {}) {
 
                 if (!settings.poolKey || typeof settings.poolKey === "string") {
                     var pool = poolMap.find(a => a.poolKey === settings.poolKey) ?? defaultPool;
-                    this.unsubscribeFuncList.push(pool.subscribe(this.poolChanged))
+                    unsubscribeFuncList.push(pool.subscribe(poolChanged))
                 } else if (settings.poolKey?.length) {
-                    this.unsubscribeFuncList.push(defaultPool.subscribe(this.poolChanged))
+                    unsubscribeFuncList.push(defaultPool.subscribe(poolChanged))
                     settings.poolKey.forEach(key => {
                         var pool = poolMap.find(a => a.poolKey === key)
                         if (!pool) {
                             throw new Error(`withLoading initialize failed! '${key}' pool is not found or withPool not initialized yet`)
                         }
-
-                        this.unsubscribeFuncList.push(pool.subscribe(this.poolChanged))
+                        unsubscribeFuncList.push(pool.subscribe(poolChanged))
                     })
-
                 }
-            }
-            poolChanged = ({ key, isLoading, percentage, runningTasks }: StatusCallback) => {
-                const { statusList } = this.state;
-                let newState: WithLoadingState = { statusList: { ...statusList } }
+                return () => unsubscribeFuncList.forEach(func => func());
+            }, []);
 
-
-
-                if (key === "default") {
-                    if (this.state.isLoading !== isLoading) {
-                        newState = { ...newState, isLoading };
-                    }
-                    if (this.state.percentage !== percentage) {
-                        newState = { ...newState, percentage };
-                    }
-                    if (this.state.runningTasks !== runningTasks) {
-                        newState = { ...newState, runningTasks };
-                    }
-                } else {
-
-                    newState.statusList ??= {};
-                    newState.statusList[key] = {
-                        isLoading,
-                        percentage,
-                        runningTasks
-                    }
-                }
-
-                this.setState(newState)
-            }
-            componentWillUnmount() {
-                this.unsubscribeFuncList.forEach(func => func());
-            }
-            render() {
-                const { forwardedRef, ...rest } = this.props;
-                const { isLoading, percentage, runningTasks, statusList } = this.state
-                return (
-                    <Component
-                        ref={forwardedRef}
-                        isLoading={isLoading}
-                        percentage={percentage}
-                        runningTasks={runningTasks}
-                        statusList={statusList}
-                        {...rest as T}
-                    />
-                );
-            }
+            return (
+                <Component
+                    ref={forwardedRef}
+                    isLoading={isLoading}
+                    percentage={percentage}
+                    runningTasks={runningTasks}
+                    statusList={statusList}
+                    {...rest as T}
+                />
+            );
         }
 
         return React.forwardRef<T, any>((props, ref) => {
