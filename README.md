@@ -8,14 +8,8 @@
 Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks.
 
 ## Demo
-<iframe src="https://codesandbox.io/embed/example-usage-loadio-loz1y?fontsize=14&hidenavigation=1&theme=dark"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="Example usage - loadio"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-   ></iframe>
-   
 [![Edit Example usage - loadio](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/example-usage-loadio-loz1y?fontsize=14&hidenavigation=1&theme=dark)
+
 ## Installation
 
 Install React Table as a dependency
