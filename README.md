@@ -1,8 +1,7 @@
 # Loadio
 
 [![Npm Version][npm-version-image]][npm-version-url]
-[![License][license-image]][license-url]
-[![Downloads][downloads-image]][downloads-url]
+[![License][license-image]][license-url] 
 
 ## About
 
@@ -34,7 +33,7 @@ const customFetch = withPool(fetch);
 export { customFetch as fetch };
 ```
 
-##### Main.jsx
+##### index.js
 
 Wrap the main component to inject pool information
 The information to be added to the component is as follows:
@@ -67,7 +66,7 @@ class Main extends React.Component {
     return (
       <>
         <MyLoadingComponent open={isLoading} percentage={percentage} />
-        <MainPage />
+        <ExamplePage />
       </>
     );
   }
@@ -75,7 +74,7 @@ class Main extends React.Component {
 export default withLoading()(Main);
 ```
 
-##### MainPage.jsx
+##### ExamplePage.jsx
 
 Call the wrapped promise anywhere to show loading screen
 When run multiple times at the same time, it will also create a percentage rate until all promises are finished.
@@ -83,13 +82,31 @@ When run multiple times at the same time, it will also create a percentage rate 
 ```js
 import { fetch } from "./customFetch.js";
 
-class Main extends React.Component {
-  getData = () => {
-    fetch("http://example.com/movies.json");
-  };
-}
+getData = () => {
+  fetch("http://example.com/movies.json");
+};
+ 
 ```
 
+Or
+
+
+```js 
+const fetch = withPool(fetch);
+
+getData = () => {
+  fetch("http://example.com/movies.json");
+};
+ 
+```
+Or it can be created multiple times dynamically.
+It is recommended to be created and used once.
+
+```js  
+getData = () => {
+  withPool(fetch)("http://example.com/movies.json");
+}; 
+```
 ### Multiple usage
 
 The withPool wrapper can be created with a different key and can be used in different screens. Second parameter value is `'default'` by default.
@@ -114,9 +131,9 @@ const customLongRunningTask = withPool(myLongRunningTask, "longRunningTask");
 export { customLongRunningTask as longRunningTask };
 ```
 
-##### Main.jsx
+##### index.js
 
-The pool with the 'default' key name is always bound and comes in root props when using multiple pool keys.
+The root loading props(isLoading, percentage, runningTasks) come null when using multiple pool keys except for the `'statusList'` prop.
 Both pools can be connected to a single page or can be used individually.
 
 ```jsx
@@ -137,7 +154,7 @@ class Main extends React.Component {
           open={lrtStatus.isLoading}
           percentage={lrtStatus.percentage}
         />
-        <MainPage />
+        <ExamplePage />
       </>
     );
   }
@@ -146,7 +163,8 @@ export default withLoading({
   poolKey: ["longRunningTask", "fetch"],
 })(Main);
 ```
-Or bind only one pool 'longRunningTask' instead of 'default'
+Or bind only one pool 'longRunningTask' instead of 'default'.
+Thus, instead of coming statuses as the list, the bound pool status comes from the props in the root directly.
 
 ```jsx
 import { withLoading } from "loadio";
@@ -160,7 +178,7 @@ class Main extends React.Component {
           open={isLoading}
           percentage={percentage}
         />
-        <MainPage />
+        <ExamplePage />
       </>
     );
   }
@@ -171,12 +189,10 @@ export default withLoading({
 ```
 ## License
 
-MIT
+MIT - Mustafa Kuru
 
 
 [license-image]: http://img.shields.io/npm/l/loadio.svg
-[license-url]: LICENSE
-[downloads-image]: http://img.shields.io/npm/dm/loadio.svg
-[downloads-url]: http://npm-stat.com/charts.html?package=loadio
+[license-url]: LICENSE 
 [npm-version-image]: https://img.shields.io/npm/v/loadio.svg
 [npm-version-url]: https://www.npmjs.com/package/loadio
