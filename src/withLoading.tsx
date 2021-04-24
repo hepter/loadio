@@ -18,7 +18,7 @@ export type WithLoadingSettings = {
     poolKey?: string | Array<string>,
 }
 
-export function withLoading(settings: WithLoadingSettings = {}) {
+export function withLoading(settings: WithLoadingSettings = { poolKey: "default" }) {
     return function Hoc<T extends WithLoadingState>(Component: React.ComponentType<T>) {
         function EnhancedWithLoading({ forwardedRef, ...rest }: { forwardedRef: React.Ref<T> }) {
             const [defaultStatus, setDefaultStatus] = React.useState<Omit<WithLoadingState, "statusList">>({});
@@ -28,7 +28,7 @@ export function withLoading(settings: WithLoadingSettings = {}) {
                 const poolChanged = (params: StatusCallback) => {
                     if (
                         (settings?.poolKey?.length && settings.poolKey.indexOf(params.key) > -1) ||
-                        (typeof settings.poolKey === "string" && params.key === (settings.poolKey ?? "default"))
+                        (typeof settings.poolKey === "string" && params.key === (settings.poolKey))
                     ) {
                         if (params.key === "default") {
                             let newState: WithLoadingState = defaultStatus;
