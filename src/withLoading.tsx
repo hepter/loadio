@@ -21,34 +21,33 @@ export type WithLoadingSettings = {
 export function withLoading(settings: WithLoadingSettings = {}) {
     return function Hoc<T extends WithLoadingState>(Component: React.ComponentType<T>) {
         function EnhancedWithLoading({ forwardedRef, ...rest }: { forwardedRef: React.Ref<T> }) {
-            const [isLoading, setIsLoading] = React.useState(false);
-            const [percentage, setPercentage] = React.useState(0);
-            const [runningTasks, setRunningTasks] = React.useState(0);
+            const [defaultStatus, setDefaultStatus] = React.useState<Omit<WithLoadingState, "statusList">>({});
             const [statusList, setStatusList] = React.useState<Record<string, Omit<WithLoadingState, "statusList">>>({});
             const [unsubscribeFuncList] = React.useState<Function[]>([]);
-
-            const poolChanged = (params: StatusCallback) => {
-                if (
-                    (settings?.poolKey?.length && settings.poolKey.indexOf(params.key) > -1) ||
-                    (typeof settings.poolKey === "string" && params.key === (settings.poolKey ?? "default"))
-                ) {
-                    if (params.key === "default") {
-                        if (params.isLoading !== isLoading) {
-                            setIsLoading(params.isLoading);
+            useEffect(() => {
+                const poolChanged = (params: StatusCallback) => {
+                    if (
+                        (settings?.poolKey?.length && settings.poolKey.indexOf(params.key) > -1) ||
+                        (typeof settings.poolKey === "string" && params.key === (settings.poolKey ?? "default"))
+                    ) {
+                        if (params.key === "default") {
+                            let newState: WithLoadingState = defaultStatus;
+                            if (params.isLoading !== defaultStatus.isLoading) {
+                                newState = { ...newState, isLoading: params.isLoading };
+                            }
+                            if (params.percentage !== defaultStatus.percentage) {
+                                newState = { ...newState, percentage: params.percentage };
+                            }
+                            if (params.runningTasks !== defaultStatus.runningTasks) {
+                                newState = { ...newState, runningTasks: params.runningTasks };
+                            }
+                            setDefaultStatus(newState);
+                        } else {
+                            statusList[params.key] = { ...params }
+                            setStatusList({ ...statusList })
                         }
-                        if (params.percentage !== percentage) {
-                            setPercentage(params.percentage);
-                        }
-                        if (params.runningTasks !== runningTasks) {
-                            setRunningTasks(params.runningTasks);
-                        }
-                    } else {
-                        statusList[params.key] = { ...params }
-                        setStatusList({ ...statusList })
                     }
                 }
-            }
-            useEffect(() => {
                 var defaultPool = poolMap.find(a => a.poolKey === "default");
                 if (defaultPool === undefined) {
                     throw new TypeError('The value was promised to always be there!');
@@ -62,9 +61,9 @@ export function withLoading(settings: WithLoadingSettings = {}) {
             return (
                 <Component
                     ref={forwardedRef}
-                    isLoading={isLoading}
-                    percentage={percentage}
-                    runningTasks={runningTasks}
+                    isLoading={defaultStatus.isLoading}
+                    percentage={defaultStatus.percentage}
+                    runningTasks={defaultStatus.runningTasks}
                     statusList={statusList}
                     {...rest as T}
                 />
