@@ -80,7 +80,7 @@ export default withLoading()(Main);
 Call the wrapped promise anywhere to show loading screen
 When run multiple times at the same time, it will also create a percentage rate until all promises are finished.
 
-```jsx
+```js
 import { fetch } from "./customFetch.js";
 
 class Main extends React.Component {
@@ -88,7 +88,6 @@ class Main extends React.Component {
     fetch("http://example.com/movies.json");
   };
 }
-export default withLoading()(Main);
 ```
 
 ### Multiple usage
