@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StatusCallback } from "./Pool";
+import { Pool, StatusCallback } from "./Pool";
 import { poolMap } from "./PoolMap";
 
 
@@ -27,22 +27,27 @@ export function withLoading(settings: WithLoadingSettings = {}) {
         const [statusList, setStatusList] = React.useState<Record<string, Omit<WithLoadingState, "statusList">>>({});
         const [unsubscribeFuncList] = React.useState<Function[]>([]);
 
-        function EnhancedWithLoading({ forwardedRef, ...rest }: {forwardedRef: React.Ref<T>}) {
+        function EnhancedWithLoading({ forwardedRef, ...rest }: { forwardedRef: React.Ref<T> }) {
 
             const poolChanged = (params: StatusCallback) => {
-                if (params.key === "default") {
-                    if (params.isLoading !== isLoading) {
-                        setIsLoading(params.isLoading);
+                if (
+                    (settings?.poolKey?.length && settings.poolKey.indexOf(params.key)) ||
+                    (params.key !== (settings.poolKey ?? "default"))
+                ) {
+                    if (params.key === "default") {
+                        if (params.isLoading !== isLoading) {
+                            setIsLoading(params.isLoading);
+                        }
+                        if (params.percentage !== percentage) {
+                            setPercentage(params.percentage);
+                        }
+                        if (params.runningTasks !== runningTasks) {
+                            setRunningTasks(params.runningTasks);
+                        }
+                    } else {
+                        statusList[params.key] = { ...params }
+                        setStatusList({ ...statusList })
                     }
-                    if (params.percentage !== percentage) {
-                        setPercentage(params.percentage);
-                    }
-                    if (params.runningTasks !== runningTasks) {
-                        setRunningTasks(params.runningTasks);
-                    }
-                } else {
-                    statusList[params.key] = { ...params }
-                    setStatusList({ ...statusList })
                 }
             }
             useEffect(() => {
@@ -51,19 +56,8 @@ export function withLoading(settings: WithLoadingSettings = {}) {
                     throw new TypeError('The value was promised to always be there!');
                 }
 
-                if (!settings.poolKey || typeof settings.poolKey === "string") {
-                    var pool = poolMap.find(a => a.poolKey === settings.poolKey) ?? defaultPool;
-                    unsubscribeFuncList.push(pool.subscribe(poolChanged))
-                } else if (settings.poolKey?.length) {
-                    unsubscribeFuncList.push(defaultPool.subscribe(poolChanged))
-                    settings.poolKey.forEach(key => {
-                        var pool = poolMap.find(a => a.poolKey === key)
-                        if (!pool) {
-                            throw new Error(`withLoading initialize failed! '${key}' pool is not found or withPool not initialized yet`)
-                        }
-                        unsubscribeFuncList.push(pool.subscribe(poolChanged))
-                    })
-                }
+                unsubscribeFuncList.push(Pool.subscribe(poolChanged))
+
                 return () => unsubscribeFuncList.forEach(func => func());
             }, []);
 

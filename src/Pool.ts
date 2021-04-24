@@ -14,15 +14,15 @@ export interface PoolElement {
 
 }
 
-export class Pool {
+export class Pool { 
+    static subscribeList: SubscribeCallback[] = [];
     poolList: Promise<any>[] = [];
-    subscribeList: SubscribeCallback[] = [];
     taskCount: number = 0;
     poolKey: string
     constructor(poolKey: string) {
         this.poolKey = poolKey;
     }
-    subscribe(callback: SubscribeCallback) {
+    static subscribe(callback: SubscribeCallback) {
         this.subscribeList.push(callback);
         return () => {
             this.subscribeList = this.subscribeList.filter(item => item !== callback);
@@ -35,7 +35,7 @@ export class Pool {
     }
 
     private notifyStatus = () => {
-        this.subscribeList.forEach(func => {
+        Pool.subscribeList.forEach(func => {
             let paramObj: StatusCallback = {
                 key: this.poolKey,
                 isLoading: this.poolList.length !== 0,
