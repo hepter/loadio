@@ -1,0 +1,17 @@
+{
+  "verbose": true,
+  "colours": true,
+  "stdout": true,
+  "ignore": [
+    "**/*/test-project",
+    "**/*/lib",
+    ".git"
+  ],
+  "watch": [
+    ".."
+  ],
+  "ext": "js ts tsx json png jpeg jpg",
+  "events": {
+    "restart": "npm run cp"
+  }
+}

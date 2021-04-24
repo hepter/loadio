@@ -1,0 +1,49 @@
+{
+  "name": "loadio",
+  "description": "Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks",
+  "version": "1.0.0",
+  "author": "Mustafa Kuru <mustafakuru042@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/hepter/loadio/issues"
+  },
+  "keywords": [
+    "load",
+    "loading",
+    "pool",
+    "taskpool",
+    "promise",
+    "manager",
+    "percentage"
+  ],
+  "main": "lib/index.js",
+  "source": "src/index.ts",
+  "typings": "lib/index.d.ts",
+  "private": false,
+  "dependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
+  },
+  "files": [
+    "*",
+    "!test-project"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hepter/loadio.git"
+  },
+  "scripts": {
+    "build": "tsc --noEmit false"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  }
+}
