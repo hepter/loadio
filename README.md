@@ -7,7 +7,7 @@
 
 Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks.
 
-Click [here](https://hepter.github.io/loadio) for a more detailed document
+Click [here](https://hepter.github.io/loadio/) for a more detailed document
 
 ## Demo
 [![Edit Example usage - loadio](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/example-usage-loadio-loz1y?fontsize=14&hidenavigation=1&theme=dark)
