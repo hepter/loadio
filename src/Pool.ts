@@ -25,23 +25,35 @@ export interface PoolCallbackParams {
     */
     percentage: number
 }
-export type SubscribeCallback = (status: PoolCallbackParams) => void;
-export type PoolMethod<T, Z extends any[]> = (...params: Z) => Promise<T>;
-
+export type PoolSubscribeCallback = (status: PoolCallbackParams) => void;
 export class Pool {
-    subscribeList: SubscribeCallback[] = [];
+    subscribeList: PoolSubscribeCallback[] = [];
     promiseList: Promise<any>[] = [];
     taskCount: number = 0;
     poolKey: string
-    constructor(poolKey: string) {
+    /**
+     * Create pool to manage manually
+     * @param poolKey Unique pool key
+     */
+    public constructor(poolKey: string) {
         this.poolKey = poolKey;
     }
-    public subscribe(callback: SubscribeCallback) {
+
+    /**
+     * Subscribes to the current pool
+     * @param callback Callback method
+     * @returns Returns unsubscribe method
+     */
+    public subscribe(callback: PoolSubscribeCallback) {
         this.subscribeList.push(callback);
         return () => {
             this.subscribeList = this.subscribeList.filter(item => item !== callback);
         };
     }
+    /**
+     * Adds the promise current pool and notifies listeners
+     * @param promise 
+     */
     public append<T>(promise: Promise<T>) {
         promise.finally(this.promiseFinisher(promise))
         this.promiseList.push(promise);

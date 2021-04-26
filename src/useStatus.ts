@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { Pool, PoolCallbackParams } from "./Pool";
 import { PoolManager } from "./PoolManager";
 
+/** 
+ * Returns information about the target pool with hook
+ * @param poolKey  Unique pool key. Default value is `'default'`
+ * @returns Pool status
+ */
 export function useStatus(poolKey: string = "default"): PoolCallbackParams {
     const [pool, setPool] = useState<Pool | null>(null);
     const [status, setStatus] = useState({

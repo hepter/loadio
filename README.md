@@ -7,6 +7,8 @@
 
 Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks.
 
+Click [here](https://hepter.github.io/loadio) for a more detailed document
+
 ## Demo
 [![Edit Example usage - loadio](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/example-usage-loadio-loz1y?fontsize=14&hidenavigation=1&theme=dark)
 
@@ -61,7 +63,7 @@ The information to be added to the component is as follows:
 ```
 
 ```jsx
-import { withLoading } from "loadio";
+import { withStatus } from "loadio";
 
 class Main extends React.Component {
   render() {
@@ -74,7 +76,7 @@ class Main extends React.Component {
     );
   }
 }
-export default withLoading()(Main);
+export default withStatus(Main);
 ```
 
 ##### ExamplePage.jsx
@@ -140,7 +142,7 @@ The root loading props(isLoading, percentage, runningTasks) come null when using
 Both pools can be connected to a single page or can be used individually.
 
 ```jsx
-import { withLoading } from "loadio";
+import { withStatus } from "loadio";
 
 class Main extends React.Component {
   render() {
@@ -162,15 +164,15 @@ class Main extends React.Component {
     );
   }
 }
-export default withLoading({
+export default withStatus(Main, {
   poolKey: ["longRunningTask", "fetch"],
-})(Main);
+});
 ```
 Or bind only one pool 'longRunningTask' instead of 'default'.
 Thus, instead of coming statuses as the list, the bound pool status comes from the props in the root directly.
 
 ```jsx
-import { withLoading } from "loadio";
+import { withStatus } from "loadio";
 
 class Main extends React.Component {
   render() {
@@ -186,9 +188,9 @@ class Main extends React.Component {
     );
   }
 }
-export default withLoading({
+export default withStatus(Main, {
   poolKey: "longRunningTask",
-})(Main);
+});
 ```
 ## License
 

@@ -1,0 +1,315 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>loadio</title>
+	<meta name="description" content="Documentation for loadio">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">loadio</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>loadio</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#loadio" id="loadio" style="color: inherit; text-decoration: none;">
+					<h1>Loadio</h1>
+				</a>
+				<p><a href="https://www.npmjs.com/package/loadio"><img src="https://img.shields.io/npm/v/loadio.svg" alt="Npm Version"></a>
+				<a href="LICENSE"><img src="http://img.shields.io/npm/l/loadio.svg" alt="License"></a> </p>
+				<a href="#about" id="about" style="color: inherit; text-decoration: none;">
+					<h2>About</h2>
+				</a>
+				<p>Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks.</p>
+				<a href="#demo" id="demo" style="color: inherit; text-decoration: none;">
+					<h2>Demo</h2>
+				</a>
+				<p><a href="https://codesandbox.io/s/example-usage-loadio-loz1y?fontsize=14&amp;hidenavigation=1&amp;theme=dark"><img src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit Example usage - loadio"></a></p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<p>Install React Table as a dependency</p>
+				<pre><code class="language-shell"><span style="color: #008000"># Yarn</span>
+<span style="color: #000000">$ yarn add loadio</span>
+
+<span style="color: #008000"># NPM</span>
+<span style="color: #000000">$ npm install loadio</span>
+</code></pre>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>For this example, loading component will automatically appear when wrapped fetch function called</p>
+				<p>Wrap the function you want to show while running</p>
+				<a href="#fetchjs" id="fetchjs" style="color: inherit; text-decoration: none;">
+					<h5>fetch.js</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">customFetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">customFetch</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">fetch</span><span style="color: #000000"> };</span>
+</code></pre>
+				<a href="#indexjs" id="indexjs" style="color: inherit; text-decoration: none;">
+					<h5>index.js</h5>
+				</a>
+				<p>Wrap the main component to inject pool information
+				The information to be added to the component is as follows:</p>
+				<pre><code class="language-ts"><span style="color: #000000">{</span>
+<span style="color: #000000">    </span><span style="color: #008000">// default</span>
+<span style="color: #000000">    </span><span style="color: #001080">isLoading</span><span style="color: #000000">?: </span><span style="color: #001080">boolean</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">percentage</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #001080">runningTasks</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">,</span>
+<span style="color: #000000">    </span><span style="color: #008000">// custom pools except &#039;default&#039;. In order for this data to appear,</span>
+<span style="color: #000000">    </span><span style="color: #008000">// pool keys must be given while wrapping otherwise this value is empty</span>
+<span style="color: #000000">    </span><span style="color: #001080">statusList</span><span style="color: #000000">?: </span><span style="color: #001080">any</span><span style="color: #000000">[] {</span>
+<span style="color: #000000">        [</span><span style="color: #001080">customPoolKey</span><span style="color: #000000">:</span><span style="color: #001080">string</span><span style="color: #000000">]:{</span>
+<span style="color: #000000">            isLoading?</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">boolean</span><span style="color: #000000">,</span>
+<span style="color: #000000">            percentage?</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">number</span><span style="color: #000000">,</span>
+<span style="color: #000000">            runningTasks?</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">number</span>
+<span style="color: #000000">        },</span>
+<span style="color: #000000">        ...</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<pre><code class="language-jsx"><span style="color: #000000">import { withStatus } from &quot;loadio&quot;;</span>
+
+<span style="color: #000000">class Main extends React.Component {</span>
+<span style="color: #000000">  render() {</span>
+<span style="color: #000000">    const { isLoading, percentage } = this.props;</span>
+<span style="color: #000000">    return (</span>
+<span style="color: #000000">      &lt;&gt;</span>
+<span style="color: #000000">        &lt;MyLoadingComponent open={isLoading} percentage={percentage} /&gt;</span>
+<span style="color: #000000">        &lt;ExamplePage /&gt;</span>
+<span style="color: #000000">      &lt;/&gt;</span>
+<span style="color: #000000">    );</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+<span style="color: #000000">export default withStatus(Main);</span>
+</code></pre>
+				<a href="#examplepagejsx" id="examplepagejsx" style="color: inherit; text-decoration: none;">
+					<h5>ExamplePage.jsx</h5>
+				</a>
+				<p>Call the wrapped promise anywhere to show loading screen
+				When run multiple times at the same time, it will also create a percentage rate until all promises are finished.</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">fetch</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;./customFetch.js&quot;</span><span style="color: #000000">;</span>
+
+<span style="color: #795E26">getData</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">};</span>
+<span style="color: #000000"> </span>
+</code></pre>
+				<p>Or</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
+
+<span style="color: #795E26">getData</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">};</span>
+<span style="color: #000000"> </span>
+</code></pre>
+				<p>Or it can be created multiple times dynamically.
+				It is recommended to be created and used once.</p>
+				<pre><code class="language-js"><span style="color: #795E26">getData</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">)(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">}; </span>
+</code></pre>
+				<a href="#multiple-usage" id="multiple-usage" style="color: inherit; text-decoration: none;">
+					<h3>Multiple usage</h3>
+				</a>
+				<p>The withPool wrapper can be created with a different key and can be used in different screens. Second parameter value is <code>&#39;default&#39;</code> by default.</p>
+				<a href="#fetchjs-1" id="fetchjs-1" style="color: inherit; text-decoration: none;">
+					<h5>fetch.js</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">customFetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;fetch&quot;</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">customFetch</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">fetch</span><span style="color: #000000"> };</span>
+</code></pre>
+				<a href="#longrunningtaskjs" id="longrunningtaskjs" style="color: inherit; text-decoration: none;">
+					<h5>longRunningTask.js</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">myLongRunningTask</span><span style="color: #000000">() {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">((</span><span style="color: #001080">resolve</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(</span><span style="color: #001080">resolve</span><span style="color: #000000">, </span><span style="color: #098658">10000</span><span style="color: #000000">));</span>
+<span style="color: #000000">}</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">customLongRunningTask</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">myLongRunningTask</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;longRunningTask&quot;</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">customLongRunningTask</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">longRunningTask</span><span style="color: #000000"> };</span>
+</code></pre>
+				<a href="#indexjs-1" id="indexjs-1" style="color: inherit; text-decoration: none;">
+					<h5>index.js</h5>
+				</a>
+				<p>The root loading props(isLoading, percentage, runningTasks) come null when using multiple pool keys except for the <code>&#39;statusList&#39;</code> prop.
+				Both pools can be connected to a single page or can be used individually.</p>
+				<pre><code class="language-jsx"><span style="color: #000000">import { withStatus } from &quot;loadio&quot;;</span>
+
+<span style="color: #000000">class Main extends React.Component {</span>
+<span style="color: #000000">  render() {</span>
+<span style="color: #000000">    const { isLoading, percentage, statusList } = this.props;</span>
+<span style="color: #000000">    var fetchStatus = statusList[&quot;fetch&quot;] ?? {};</span>
+<span style="color: #000000">    var lrtStatus = statusList[&quot;longRunningTask&quot;] ?? {};</span>
+<span style="color: #000000">    return (</span>
+<span style="color: #000000">      &lt;&gt;</span>
+<span style="color: #000000">        &lt;MyLoadingComponent</span>
+<span style="color: #000000">          open={fetchStatus.isLoading}</span>
+<span style="color: #000000">          percentage={fetchStatus.percentage}</span>
+<span style="color: #000000">        /&gt;</span>
+<span style="color: #000000">        &lt;MyLoadingComponent</span>
+<span style="color: #000000">          open={lrtStatus.isLoading}</span>
+<span style="color: #000000">          percentage={lrtStatus.percentage}</span>
+<span style="color: #000000">        /&gt;</span>
+<span style="color: #000000">        &lt;ExamplePage /&gt;</span>
+<span style="color: #000000">      &lt;/&gt;</span>
+<span style="color: #000000">    );</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+<span style="color: #000000">export default withStatus(Main, {</span>
+<span style="color: #000000">  poolKey: [&quot;longRunningTask&quot;, &quot;fetch&quot;],</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>Or bind only one pool &#39;longRunningTask&#39; instead of &#39;default&#39;.
+				Thus, instead of coming statuses as the list, the bound pool status comes from the props in the root directly.</p>
+				<pre><code class="language-jsx"><span style="color: #000000">import { withStatus } from &quot;loadio&quot;;</span>
+
+<span style="color: #000000">class Main extends React.Component {</span>
+<span style="color: #000000">  render() {</span>
+<span style="color: #000000">    const { isLoading, percentage, statusList } = this.props;</span>
+<span style="color: #000000">    return (</span>
+<span style="color: #000000">      &lt;&gt;</span>
+<span style="color: #000000">        &lt;MyLoadingComponent</span>
+<span style="color: #000000">          open={isLoading}</span>
+<span style="color: #000000">          percentage={percentage}</span>
+<span style="color: #000000">        /&gt;</span>
+<span style="color: #000000">        &lt;ExamplePage /&gt;</span>
+<span style="color: #000000">      &lt;/&gt;</span>
+<span style="color: #000000">    );</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+<span style="color: #000000">export default withStatus(Main, {</span>
+<span style="color: #000000">  poolKey: &quot;longRunningTask&quot;,</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>MIT - Mustafa Kuru</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="classes/pool.html" class="tsd-kind-icon">Pool</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/poolmanager.html" class="tsd-kind-icon">Pool<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/poolcallbackparams.html" class="tsd-kind-icon">Pool<wbr>Callback<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/withstatuscallbackparams.html" class="tsd-kind-icon">With<wbr>Status<wbr>Callback<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/withstatusstate.html" class="tsd-kind-icon">With<wbr>Status<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#poolmanagersubscribecallback" class="tsd-kind-icon">Pool<wbr>Manager<wbr>Subscribe<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#poolsubscribecallback" class="tsd-kind-icon">Pool<wbr>Subscribe<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#withstatussettings" class="tsd-kind-icon">With<wbr>Status<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#usestatus" class="tsd-kind-icon">use<wbr>Status</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#withpool" class="tsd-kind-icon">with<wbr>Pool</a>
+					</li>
+					<li class=" tsd-kind-function tsd-has-type-parameter">
+						<a href="modules.html#withstatus" class="tsd-kind-icon">with<wbr>Status</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

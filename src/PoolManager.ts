@@ -1,9 +1,8 @@
 import { Pool, PoolCallbackParams } from "./Pool";
 
 
+type PoolManagerCallback = (poolKey: string, status: PoolCallbackParams) => void;
 export type PoolManagerSubscribeCallback = (status: PoolCallbackParams) => void;
-export type PoolManagerCallback = (poolKey: string, status: PoolCallbackParams) => void;
-
 export class PoolManager {
     private static subscribeList: PoolManagerCallback[] = [];
     private static poolList: { [poolKey: string]: Pool } = {};

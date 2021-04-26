@@ -24,10 +24,11 @@
     "react-dom": ">=16.8.0"
   },
   "devDependencies": {
-    "typescript": "^4.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0"
+    "@types/react-dom": "^17.0.0",
+    "typedoc": "0.20.36",
+    "typescript": "^4.0.0"
   },
   "files": [
     "*",
@@ -40,7 +41,8 @@
     "url": "git+ssh://git@github.com/hepter/loadio.git"
   },
   "scripts": {
-    "build": "tsc --noEmit false"
+    "build": "tsc --noEmit false",
+    "doc": "typedoc src/index.ts"
   },
   "eslintConfig": {
     "extends": [

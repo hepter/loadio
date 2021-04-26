@@ -14,13 +14,19 @@ export interface WithStatusState extends WithStatusCallbackParams {
 export type WithStatusSettings = {
 
     /**
-     * Use poolKey single or as an array. All loading statuses will store in the 'statusList' array with pool key except 'default' pool
-     * Default is `'default'`.
+     * Unique pool key. Use poolKey single or as an array. All loading statuses will store in the 'statusList' array with pool key except 'default' pool. 
+     * Default value is `'default'`
      */
     poolKey?: string | Array<string>,
 }
-
-export function withStatus<T extends WithStatusState>(Component: React.ComponentType<T>, settings?: WithStatusSettings) {
+/** 
+ * React component wrapper.
+ * Props of the wrapped component are automatically updated according to the state of the target pool or pools.
+ * @param component The component which you want to wrap it
+ * @param settings Settings
+ * @returns Wrapped component
+ */
+export function withStatus<T extends WithStatusState>(component: React.ComponentType<T>, settings?: WithStatusSettings) {
     let s = settings ?? { poolKey: "default" };
     function EnhancedWithStatus({ forwardedRef, ...rest }: { forwardedRef: React.Ref<T> }) {
         const [defaultStatus, setDefaultStatus] = React.useState<WithStatusCallbackParams>({
@@ -54,7 +60,7 @@ export function withStatus<T extends WithStatusState>(Component: React.Component
             return unsubscribe;
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, []);
-
+        const Component = component;
         return (
             <Component
                 ref={forwardedRef}
