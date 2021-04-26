@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { withLoading, withPool } from "loadio";
+import { withStatus, withPool, useStatus } from "loadio";
 
 
 function longRunningTask(timeout) {
@@ -9,9 +9,35 @@ function longRunningTask(timeout) {
 
 var longRunningTaskWithPool = withPool(longRunningTask);
 var longRunningTaskWithPoolCustom = withPool(longRunningTask, "xTask");
+var longRunningTaskWithPoolCustom2 = withPool(longRunningTask, "yTask");
+
+function HookTestComponent() {
+  var status = useStatus("xTask")
+  return (
+    <div>
+      <h3>Pool: 'xTask'</h3>
+      {`${status.isLoading ? "Loading..." : "Loaded"}`}
+      <br />
+      {`percentage ${status.percentage}%`}
+      <br />
+      <button onClick={() => {
+        longRunningTaskWithPoolCustom(1000);
+        longRunningTaskWithPoolCustom(2000);
+        longRunningTaskWithPoolCustom(3000);
+        longRunningTaskWithPoolCustom(4000);
+        longRunningTaskWithPoolCustom(5000);
+
+      }}>
+        Load xTask
+    </button>
+    </div>
+  )
+}
+
+
 
 function App({ isLoading, percentage, statusList }) {
-  var xTaskStatus = statusList["xTask"] ?? {};
+  var yTaskStatus = statusList["yTask"] ?? {};
   return (
     <div className="App">
       <header className="App-header">
@@ -33,31 +59,28 @@ function App({ isLoading, percentage, statusList }) {
           </button>
         </div>
         <br />
+        <HookTestComponent />
+        <br />
         <div>
-          <h3>Pool: 'xTask'</h3>
-          {`${xTaskStatus.isLoading ? "Loading..." : "Loaded"}`}
+          <h3>Pool: 'yTask'</h3>
+          {`${yTaskStatus.isLoading ? "Loading..." : "Loaded"}`}
           <br />
-          {`percentage ${xTaskStatus.percentage}%`}
+          {`percentage ${yTaskStatus.percentage}%`}
           <br />
           <button onClick={() => {
-            longRunningTaskWithPoolCustom(1000);
-            longRunningTaskWithPoolCustom(2000);
-            longRunningTaskWithPoolCustom(3000);
-            longRunningTaskWithPoolCustom(4000);
-            longRunningTaskWithPoolCustom(5000);
+            longRunningTaskWithPoolCustom2(1000);
+            longRunningTaskWithPoolCustom2(2000);
+            longRunningTaskWithPoolCustom2(3000);
+            longRunningTaskWithPoolCustom2(4000);
+            longRunningTaskWithPoolCustom2(5000);
 
           }}>
-            Load xTask
+            Load yTask
           </button>
         </div>
-
       </header>
     </div >
   );
 }
 
-const app = withLoading({
-  poolKey: ["default", "xTask"]
-})(App)
-export default app;
-// export default (App);
+export default withStatus(App, { poolKey: ["default", "yTask"] })
