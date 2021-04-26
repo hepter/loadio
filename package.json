@@ -1,7 +1,7 @@
 {
   "name": "loadio",
   "description": "Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Mustafa Kuru <mustafakuru042@gmail.com>",
   "homepage": "https://github.com/hepter/loadio",
   "bugs": {
@@ -32,9 +32,8 @@
     "typescript": "^4.0.0"
   },
   "files": [
-    "*",
-    "lib/*",
-    "!test-project"
+    "lib",
+    "src"
   ],
   "license": "MIT",
   "repository": {
