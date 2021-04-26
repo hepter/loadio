@@ -1,15 +1,9 @@
-import { Pool } from "./Pool";
-import { poolMap } from "./PoolMap";
-
+import { PoolManager } from "./PoolManager";
 
 
 export function withPool<T extends (...params: any) => Promise<any>>(method: T, poolKey: string = "default") {
 
-    let poolResult = poolMap.find(item => item.poolKey === poolKey);
-    let pool = poolResult ?? new Pool(poolKey);
-    if (!poolResult) {
-        poolMap.push(pool)
-    }
+    let pool = PoolManager.get(poolKey) 
     const withPoolFunction = (...params: any[]) => {
         let promise = method(...params);
         pool.append(promise);
