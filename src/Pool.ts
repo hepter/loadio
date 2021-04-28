@@ -27,10 +27,16 @@ export interface PoolCallbackParams {
 }
 export type PoolSubscribeCallback = (status: PoolCallbackParams) => void;
 export class Pool {
-    subscribeList: PoolSubscribeCallback[] = [];
-    promiseList: Promise<any>[] = [];
-    taskCount: number = 0;
-    poolKey: string
+    private subscribeList: PoolSubscribeCallback[] = [];
+    private promiseList: Promise<any>[] = [];
+    private taskCount: number = 0;
+    private poolKey: string
+    /**
+     * Pool key
+     */
+    public get key() {
+        return this.poolKey;
+    }
     /**
      * Create pool to manage manually
      * @param poolKey Unique pool key

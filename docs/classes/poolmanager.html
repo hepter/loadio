@@ -77,10 +77,10 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="poolmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-private"><a href="poolmanager.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
@@ -102,17 +102,20 @@
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
 					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Pool<wbr>Manager<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="poolmanager.html" class="tsd-signature-type" data-tsd-kind="Class">PoolManager</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L8">PoolManager.ts:8</a></li>
+								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="poolmanager.html" class="tsd-signature-type" data-tsd-kind="Class">PoolManager</a></h4>
 						</li>
@@ -127,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">pool<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/hepter/loadio/blob/07d63d6/src/PoolManager.ts#L8">PoolManager.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L8">PoolManager.ts:8</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -145,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">subscribe<wbr>List<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PoolManagerCallback</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/hepter/loadio/blob/07d63d6/src/PoolManager.ts#L7">PoolManager.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L7">PoolManager.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -162,9 +165,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hepter/loadio/blob/07d63d6/src/PoolManager.ts#L47">PoolManager.ts:47</a></li>
+									<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L56">PoolManager.ts:56</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Adds the promise to the target pool and notifies listeners</p>
+								</div>
+							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -175,9 +183,15 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>promise: <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Promise</p>
+									</div>
 								</li>
 								<li>
 									<h5>poolKey: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;default&quot;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Default value is <code>&#39;default&#39;</code></p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -194,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hepter/loadio/blob/07d63d6/src/PoolManager.ts#L39">PoolManager.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L42">PoolManager.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -225,7 +239,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hepter/loadio/blob/07d63d6/src/PoolManager.ts#L9">PoolManager.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L12">PoolManager.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -266,7 +280,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/hepter/loadio/blob/07d63d6/src/PoolManager.ts#L23">PoolManager.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/hepter/loadio/blob/4881c65/src/PoolManager.ts#L26">PoolManager.ts:26</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -326,7 +340,7 @@
 					<li class="current tsd-kind-class">
 						<a href="poolmanager.html" class="tsd-kind-icon">Pool<wbr>Manager</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
 								<a href="poolmanager.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-static">
@@ -389,14 +403,14 @@
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>

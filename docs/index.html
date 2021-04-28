@@ -84,27 +84,71 @@
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<p>For this example, loading component will automatically appear when wrapped fetch function called</p>
-				<p>Wrap the function you want to show while running</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">React</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;react&quot;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000">, </span><span style="color: #001080">useStatus</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">; </span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">global</span><span style="color: #000000">.</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HomePage</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">React</span><span style="color: #000000">.</span><span style="color: #267F99">Component</span><span style="color: #000000"> {</span>
+
+<span style="color: #000000">  </span><span style="color: #795E26">render</span><span style="color: #000000">(){</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">isLoading</span><span style="color: #000000"> } = </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">props</span><span style="color: #000000">;  </span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;&gt;</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">{</span><span style="color: #001080">isLoading</span><span style="color: #000000FF"> </span><span style="color: #000000">?</span><span style="color: #000000FF"> </span><span style="color: #A31515">&quot;Loading...&quot;</span><span style="color: #000000FF"> </span><span style="color: #000000">:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&quot;Loaded!&quot;</span><span style="color: #0000FF">}</span>
+<span style="color: #000000">        </span><span style="color: #800000">&lt;button</span><span style="color: #000000"> </span><span style="color: #FF0000">onClick</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> </span><span style="color: #795E26">fetch</span><span style="color: #000000FF">(</span><span style="color: #A31515">&quot;get/data&quot;</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Get</span><span style="color: #800000">&lt;/button&gt;</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;/&gt;</span>
+<span style="color: #000000">    );</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">}</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #AF00DB">default</span><span style="color: #000000"> </span><span style="color: #795E26">withStatus</span><span style="color: #000000">(</span><span style="color: #001080">HomePage</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>Hook</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000">, </span><span style="color: #001080">useStatus</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">; </span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">global</span><span style="color: #000000">.</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">HomePage</span><span style="color: #000000">({ </span><span style="color: #001080">isLoading</span><span style="color: #000000"> }) {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">status</span><span style="color: #000000"> = </span><span style="color: #795E26">useStatus</span><span style="color: #000000">();</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;&gt;</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">{</span><span style="color: #001080">isLoading</span><span style="color: #000000FF"> </span><span style="color: #000000">?</span><span style="color: #000000FF"> </span><span style="color: #A31515">&quot;Loading...&quot;</span><span style="color: #000000FF"> </span><span style="color: #000000">:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&quot;Loaded!&quot;</span><span style="color: #0000FF">}</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;button</span><span style="color: #000000"> </span><span style="color: #FF0000">onClick</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> </span><span style="color: #795E26">fetch</span><span style="color: #000000FF">(</span><span style="color: #A31515">&quot;get/data&quot;</span><span style="color: #000000FF">)</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Get</span><span style="color: #800000">&lt;/button&gt;</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;/&gt;</span>
+<span style="color: #000000">  );</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>Promises can also be added directly to the pool without wrapping it</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">PoolManager</span><span style="color: #000000">, </span><span style="color: #001080">useStatus</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">; </span>
+
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">HomePage</span><span style="color: #000000">({ </span><span style="color: #001080">isLoading</span><span style="color: #000000"> }) {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">status</span><span style="color: #000000"> = </span><span style="color: #795E26">useStatus</span><span style="color: #000000">();</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> (</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;&gt;</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">{</span><span style="color: #001080">isLoading</span><span style="color: #000000FF"> </span><span style="color: #000000">?</span><span style="color: #000000FF"> </span><span style="color: #A31515">&quot;Loading...&quot;</span><span style="color: #000000FF"> </span><span style="color: #000000">:</span><span style="color: #000000FF"> </span><span style="color: #A31515">&quot;Loaded!&quot;</span><span style="color: #0000FF">}</span>
+<span style="color: #000000">      </span><span style="color: #800000">&lt;button</span><span style="color: #000000"> </span><span style="color: #FF0000">onClick</span><span style="color: #000000">=</span><span style="color: #0000FF">{</span><span style="color: #000000FF">() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000FF"> </span><span style="color: #001080">PoolManager</span><span style="color: #000000FF">.</span><span style="color: #795E26">append</span><span style="color: #000000FF">(</span><span style="color: #795E26">fetch</span><span style="color: #000000FF">(</span><span style="color: #A31515">&quot;get/data&quot;</span><span style="color: #000000FF">))</span><span style="color: #0000FF">}</span><span style="color: #800000">&gt;</span><span style="color: #000000">Get</span><span style="color: #800000">&lt;/button&gt;</span>
+<span style="color: #000000">    </span><span style="color: #800000">&lt;/&gt;</span>
+<span style="color: #000000">  );</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+					<h2>Example</h2>
+				</a>
+				<p>For this example, loading component will automatically appear when wrapped fetch function called
+				Wrap the function you want to show while running</p>
 				<a href="#fetchjs" id="fetchjs" style="color: inherit; text-decoration: none;">
 					<h5>fetch.js</h5>
 				</a>
-				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">customFetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
-<span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">customFetch</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">fetch</span><span style="color: #000000"> };</span>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">; </span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">global</span><span style="color: #000000">.</span><span style="color: #001080">fetch</span><span style="color: #000000">); </span>
 </code></pre>
-				<a href="#indexjs" id="indexjs" style="color: inherit; text-decoration: none;">
-					<h5>index.js</h5>
-				</a>
-				<p>Wrap the main component to inject pool information
+				<p>Wrap the main component with <code>&#39;withStatus()&#39;</code> to inject pool information.
 				The information to be added to the component is as follows:</p>
 				<pre><code class="language-ts"><span style="color: #000000">{</span>
 <span style="color: #000000">    </span><span style="color: #008000">// default</span>
 <span style="color: #000000">    </span><span style="color: #001080">isLoading</span><span style="color: #000000">?: </span><span style="color: #001080">boolean</span><span style="color: #000000">,</span>
 <span style="color: #000000">    </span><span style="color: #001080">percentage</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">,</span>
 <span style="color: #000000">    </span><span style="color: #001080">runningTasks</span><span style="color: #000000">?: </span><span style="color: #001080">number</span><span style="color: #000000">,</span>
-<span style="color: #000000">    </span><span style="color: #008000">// custom pools except &#039;default&#039;. In order for this data to appear,</span>
-<span style="color: #000000">    </span><span style="color: #008000">// pool keys must be given while wrapping otherwise this value is empty</span>
+<span style="color: #000000">    </span><span style="color: #008000">// This property will only be filled to when using a different pool than &#039;default&#039;</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Pool keys must be given while wrapping otherwise this value is empty</span>
 <span style="color: #000000">    </span><span style="color: #001080">statusList</span><span style="color: #000000">?: </span><span style="color: #001080">any</span><span style="color: #000000">[] {</span>
 <span style="color: #000000">        [</span><span style="color: #001080">customPoolKey</span><span style="color: #000000">:</span><span style="color: #001080">string</span><span style="color: #000000">]:{</span>
 <span style="color: #000000">            isLoading?</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">boolean</span><span style="color: #000000">,</span>
@@ -115,6 +159,9 @@
 <span style="color: #000000">    }</span>
 <span style="color: #000000">}</span>
 </code></pre>
+				<a href="#indexjs" id="indexjs" style="color: inherit; text-decoration: none;">
+					<h5>index.js</h5>
+				</a>
 				<pre><code class="language-jsx"><span style="color: #000000">import { withStatus } from &quot;loadio&quot;;</span>
 
 <span style="color: #000000">class Main extends React.Component {</span>
@@ -135,7 +182,7 @@
 				</a>
 				<p>Call the wrapped promise anywhere to show loading screen
 				When run multiple times at the same time, it will also create a percentage rate until all promises are finished.</p>
-				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">fetch</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;./customFetch.js&quot;</span><span style="color: #000000">;</span>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">fetch</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;./fetch.js&quot;</span><span style="color: #000000">;</span>
 
 <span style="color: #795E26">getData</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
@@ -143,17 +190,16 @@
 <span style="color: #000000"> </span>
 </code></pre>
 				<p>Or</p>
-				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">global</span><span style="color: #000000">.</span><span style="color: #001080">fetch</span><span style="color: #000000">);</span>
 
 <span style="color: #795E26">getData</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
 <span style="color: #000000">};</span>
 <span style="color: #000000"> </span>
 </code></pre>
-				<p>Or it can be created multiple times dynamically.
-				It is recommended to be created and used once.</p>
+				<p>Or it can be created multiple times dynamically.</p>
 				<pre><code class="language-js"><span style="color: #795E26">getData</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">  </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">)(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">global</span><span style="color: #000000">.</span><span style="color: #001080">fetch</span><span style="color: #000000">)(</span><span style="color: #A31515">&quot;http://example.com/movies.json&quot;</span><span style="color: #000000">);</span>
 <span style="color: #000000">}; </span>
 </code></pre>
 				<a href="#multiple-usage" id="multiple-usage" style="color: inherit; text-decoration: none;">
@@ -164,8 +210,7 @@
 					<h5>fetch.js</h5>
 				</a>
 				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">withPool</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;loadio&quot;</span><span style="color: #000000">;</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">customFetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">fetch</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;fetch&quot;</span><span style="color: #000000">);</span>
-<span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">customFetch</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">fetch</span><span style="color: #000000"> };</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fetch</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">global</span><span style="color: #000000">.</span><span style="color: #001080">fetch</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;fetch&quot;</span><span style="color: #000000">); </span>
 </code></pre>
 				<a href="#longrunningtaskjs" id="longrunningtaskjs" style="color: inherit; text-decoration: none;">
 					<h5>longRunningTask.js</h5>
@@ -175,8 +220,7 @@
 <span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">myLongRunningTask</span><span style="color: #000000">() {</span>
 <span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Promise</span><span style="color: #000000">((</span><span style="color: #001080">resolve</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">setTimeout</span><span style="color: #000000">(</span><span style="color: #001080">resolve</span><span style="color: #000000">, </span><span style="color: #098658">10000</span><span style="color: #000000">));</span>
 <span style="color: #000000">}</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">customLongRunningTask</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">myLongRunningTask</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;longRunningTask&quot;</span><span style="color: #000000">);</span>
-<span style="color: #AF00DB">export</span><span style="color: #000000"> { </span><span style="color: #001080">customLongRunningTask</span><span style="color: #000000"> </span><span style="color: #AF00DB">as</span><span style="color: #000000"> </span><span style="color: #001080">longRunningTask</span><span style="color: #000000"> };</span>
+<span style="color: #AF00DB">export</span><span style="color: #000000"> </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">longRunningTask</span><span style="color: #000000"> = </span><span style="color: #795E26">withPool</span><span style="color: #000000">(</span><span style="color: #001080">myLongRunningTask</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;longRunningTask&quot;</span><span style="color: #000000">); </span>
 </code></pre>
 				<a href="#indexjs-1" id="indexjs-1" style="color: inherit; text-decoration: none;">
 					<h5>index.js</h5>
@@ -231,6 +275,10 @@
 <span style="color: #000000">  poolKey: &quot;longRunningTask&quot;,</span>
 <span style="color: #000000">});</span>
 </code></pre>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<p>Check <a href="https://hepter.github.io/loadio/modules">here</a> for the API document </p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -291,14 +339,14 @@
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>

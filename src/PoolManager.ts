@@ -6,6 +6,9 @@ export type PoolManagerSubscribeCallback = (status: PoolCallbackParams) => void;
 export class PoolManager {
     private static subscribeList: PoolManagerCallback[] = [];
     private static poolList: { [poolKey: string]: Pool } = {};
+    private constructor() {
+
+    }
     private static getPoolListener(poolKey: string) {
         return (params: PoolCallbackParams) => {
             for (let index = 0; index < this.subscribeList.length; index++) {
@@ -44,6 +47,12 @@ export class PoolManager {
         }
         return pool;
     }
+
+     /**
+     * Adds the promise to the target pool and notifies listeners
+     * @param promise Promise 
+     * @param poolKey Default value is `'default'`
+     */
     public static append<T>(promise: Promise<T>, poolKey: string = "default") {
         this.get(poolKey).append(promise);
     }

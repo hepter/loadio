@@ -7,8 +7,6 @@
 
 Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks.
 
-Click [here](https://hepter.github.io/loadio/) for a more detailed document
-
 ## Demo
 [![Edit Example usage - loadio](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/example-usage-loadio-loz1y?fontsize=14&hidenavigation=1&theme=dark)
 
@@ -26,21 +24,72 @@ $ npm install loadio
 
 ## Usage
 
-For this example, loading component will automatically appear when wrapped fetch function called
 
+```js
+import React from "react";
+import { withPool, useStatus } from "loadio"; 
+const fetch = withPool(global.fetch);
+
+class HomePage extends React.Component {
+
+  render(){
+    const { isLoading } = this.props;  
+    return (
+      <>
+        {isLoading ? "Loading..." : "Loaded!"}
+        <button onClick={() => fetch("get/data")}>Get</button>
+      </>
+    );
+  }
+}
+export default withStatus(HomePage);
+```
+
+Hook
+```js
+import { withPool, useStatus } from "loadio"; 
+const fetch = withPool(global.fetch);
+
+function HomePage({ isLoading }) {
+  const status = useStatus();
+  return (
+    <>
+      {isLoading ? "Loading..." : "Loaded!"}
+      <button onClick={() => fetch("get/data")}>Get</button>
+    </>
+  );
+}
+```
+Promises can also be added directly to the pool without wrapping it
+
+```js
+import { PoolManager, useStatus } from "loadio"; 
+
+function HomePage({ isLoading }) {
+  const status = useStatus();
+  return (
+    <>
+      {isLoading ? "Loading..." : "Loaded!"}
+      <button onClick={() => PoolManager.append(fetch("get/data"))}>Get</button>
+    </>
+  );
+}
+```
+## Example
+For this example, loading component will automatically appear when wrapped fetch function called
 Wrap the function you want to show while running
+
 
 ##### fetch.js
 
 ```js
-import { withPool } from "loadio";
-const customFetch = withPool(fetch);
-export { customFetch as fetch };
+import { withPool } from "loadio"; 
+export const fetch = withPool(global.fetch); 
 ```
 
-##### index.js
 
-Wrap the main component to inject pool information
+
+Wrap the main component with `'withStatus()'` to inject pool information.
 The information to be added to the component is as follows:
 
 ```ts
@@ -49,8 +98,8 @@ The information to be added to the component is as follows:
     isLoading?: boolean,
     percentage?: number,
     runningTasks?: number,
-    // custom pools except 'default'. In order for this data to appear,
-    // pool keys must be given while wrapping otherwise this value is empty
+    // This property will only be filled to when using a different pool than 'default'
+    // Pool keys must be given while wrapping otherwise this value is empty
     statusList?: any[] {
         [customPoolKey:string]:{
             isLoading?: boolean,
@@ -61,7 +110,7 @@ The information to be added to the component is as follows:
     }
 }
 ```
-
+##### index.js
 ```jsx
 import { withStatus } from "loadio";
 
@@ -84,8 +133,9 @@ export default withStatus(Main);
 Call the wrapped promise anywhere to show loading screen
 When run multiple times at the same time, it will also create a percentage rate until all promises are finished.
 
+
 ```js
-import { fetch } from "./customFetch.js";
+import { fetch } from "./fetch.js";
 
 getData = () => {
   fetch("http://example.com/movies.json");
@@ -97,7 +147,7 @@ Or
 
 
 ```js 
-const fetch = withPool(fetch);
+const fetch = withPool(global.fetch);
 
 getData = () => {
   fetch("http://example.com/movies.json");
@@ -105,11 +155,10 @@ getData = () => {
  
 ```
 Or it can be created multiple times dynamically.
-It is recommended to be created and used once.
 
 ```js  
 getData = () => {
-  withPool(fetch)("http://example.com/movies.json");
+  withPool(global.fetch)("http://example.com/movies.json");
 }; 
 ```
 ### Multiple usage
@@ -120,8 +169,7 @@ The withPool wrapper can be created with a different key and can be used in diff
 
 ```js
 import { withPool } from "loadio";
-const customFetch = withPool(fetch, "fetch");
-export { customFetch as fetch };
+export const fetch = withPool(global.fetch, "fetch"); 
 ```
 
 ##### longRunningTask.js
@@ -132,8 +180,7 @@ import { withPool } from "loadio";
 function myLongRunningTask() {
   return new Promise((resolve) => setTimeout(resolve, 10000));
 }
-const customLongRunningTask = withPool(myLongRunningTask, "longRunningTask");
-export { customLongRunningTask as longRunningTask };
+export const longRunningTask = withPool(myLongRunningTask, "longRunningTask"); 
 ```
 
 ##### index.js
@@ -192,6 +239,8 @@ export default withStatus(Main, {
   poolKey: "longRunningTask",
 });
 ```
+## API
+Check [here](https://hepter.github.io/loadio/modules) for the API document 
 ## License
 
 MIT - Mustafa Kuru
