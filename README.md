@@ -1,8 +1,6 @@
-# Loadio
 
-[![Npm Version][npm-version-image]][npm-version-url]
-[![License][license-image]][license-url] 
-
+![loadio](docs/loadio.png)
+[![Npm Version][npm-version-image]][npm-version-url] [![License][license-image]][license-url] 
 ## About
 
 Simply provides a pool and wrapper to manage the promises that generate loading status and percentage information based on the execution of tasks.
