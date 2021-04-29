@@ -1,5 +1,6 @@
 
 ![loadio](docs/loadio.png)
+
 [![Npm Version][npm-version-image]][npm-version-url] [![License][license-image]][license-url] 
 ## About
 
@@ -25,7 +26,7 @@ $ npm install loadio
 
 ```js
 import React from "react";
-import { withPool, useStatus } from "loadio"; 
+import { withPool } from "loadio"; 
 const fetch = withPool(global.fetch);
 
 class HomePage extends React.Component {
@@ -48,11 +49,11 @@ Hook
 import { withPool, useStatus } from "loadio"; 
 const fetch = withPool(global.fetch);
 
-function HomePage({ isLoading }) {
+function HomePage() {
   const status = useStatus();
   return (
     <>
-      {isLoading ? "Loading..." : "Loaded!"}
+      {status.isLoading ? "Loading..." : "Loaded!"}
       <button onClick={() => fetch("get/data")}>Get</button>
     </>
   );
@@ -63,11 +64,11 @@ Promises can also be added directly to the pool without wrapping it
 ```js
 import { PoolManager, useStatus } from "loadio"; 
 
-function HomePage({ isLoading }) {
+function HomePage() {
   const status = useStatus();
   return (
     <>
-      {isLoading ? "Loading..." : "Loaded!"}
+      {status.isLoading ? "Loading..." : "Loaded!"}
       <button onClick={() => PoolManager.append(fetch("get/data"))}>Get</button>
     </>
   );
