@@ -11,7 +11,7 @@ Simply provides a pool and wrapper to manage the promises that generate loading 
 
 ## Installation
 
-Install React Table as a dependency
+Install loadio as a dependency
 
 ```shell
 # Yarn
